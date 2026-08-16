@@ -1,518 +1,199 @@
-\# Food Delivery System
+# Food Delivery System
 
+Backend application built with Java and Spring Boot for managing customers, food orders, chefs, and delivery drivers through REST APIs.
 
+## Overview
 
-A backend application developed using \*\*Java, Spring Boot, and MySQL\*\* to manage customers, orders, chefs, and delivery drivers through RESTful APIs.
+The Food Delivery System manages the core operations of a food delivery platform using a layered backend architecture.
 
+The application separates responsibilities into controllers, services, repositories, and entities while using Spring Data JPA and MySQL for persistence.
 
+## Key Features
 
-\## Project Overview
+- Customer management
+- Chef management
+- Delivery driver management
+- Order management
+- RESTful APIs
+- CRUD operations
+- MySQL database integration
+- Asynchronous order processing
+- Asynchronous chef and driver assignment
+- Layered architecture
 
-
-
-The Food Delivery System is a backend application designed to manage the core operations of a food delivery platform.
-
-
-
-The project follows a layered architecture that separates application responsibilities into:
-
-
-
-\* Controller Layer
-
-\* Service Layer
-
-\* Repository Layer
-
-\* Entity Layer
-
-
-
-Spring Boot is used for backend development, Spring Data JPA for database operations, and MySQL for data persistence.
-
-
-
-\## Features
-
-
-
-\* Customer management
-
-\* Chef management
-
-\* Delivery driver management
-
-\* Order management
-
-\* RESTful API development
-
-\* CRUD operations
-
-\* MySQL database integration
-
-\* Spring Data JPA integration
-
-\* Layered architecture
-
-\* Maven-based project management
-
-
-
-\## Technologies Used
-
-
-
-| Technology      | Purpose                         |
-
-| --------------- | ------------------------------- |
-
-| Java            | Programming Language            |
-
-| Spring Boot     | Backend Framework               |
-
-| Spring Data JPA | Database Operations             |
-
-| Hibernate       | Object-Relational Mapping       |
-
-| MySQL           | Database                        |
-
-| Maven           | Build and Dependency Management |
-
-| REST API        | Client-Server Communication     |
-
-| Postman         | API Testing                     |
-
-| Git \& GitHub    | Version Control                 |
-
-
-
-\## Project Structure
-
-
+## Architecture
 
 ```text
-
-Food-delivery-system/
-
-├── pom.xml
-
-├── .gitignore
-
-├── README.md
-
-│
-
-└── src/
-
-&#x20;   ├── main/
-
-&#x20;   │   ├── java/
-
-&#x20;   │   │   └── com/fooddelivery/
-
-&#x20;   │   │       ├── FooddeliveryApplication.java
-
-&#x20;   │   │       │
-
-&#x20;   │   │       ├── controller/
-
-&#x20;   │   │       │   ├── ChefController.java
-
-&#x20;   │   │       │   ├── DeliveryDriverController.java
-
-&#x20;   │   │       │   └── OrderController.java
-
-&#x20;   │   │       │
-
-&#x20;   │   │       ├── entity/
-
-&#x20;   │   │       │   ├── Chef.java
-
-&#x20;   │   │       │   ├── Customer.java
-
-&#x20;   │   │       │   ├── DeliveryDriver.java
-
-&#x20;   │   │       │   └── Order.java
-
-&#x20;   │   │       │
-
-&#x20;   │   │       ├── repository/
-
-&#x20;   │   │       │   ├── ChefRepository.java
-
-&#x20;   │   │       │   ├── CustomerRepository.java
-
-&#x20;   │   │       │   ├── DeliveryDriverRepository.java
-
-&#x20;   │   │       │   └── OrderRepository.java
-
-&#x20;   │   │       │
-
-&#x20;   │   │       └── service/
-
-&#x20;   │   │           ├── ChefService.java
-
-&#x20;   │   │           ├── CustomerService.java
-
-&#x20;   │   │           ├── DeliveryDriverService.java
-
-&#x20;   │   │           └── OrderService.java
-
-&#x20;   │   │
-
-&#x20;   │   └── resources/
-
-&#x20;   │       └── application.properties
-
-&#x20;   │
-
-&#x20;   └── test/
-
-&#x20;       └── java/
-
-&#x20;           └── com/fooddelivery/
-
-&#x20;               └── FooddeliveryApplicationTests.java
-
-```
-
-
-
-\## Application Architecture
-
-
-
-```text
-
 Client / Postman
-
-&#x20;      |
-
-&#x20;      v
-
+       ↓
 Controller Layer
-
-&#x20;      |
-
-&#x20;      v
-
+       ↓
 Service Layer
-
-&#x20;      |
-
-&#x20;      v
-
+       ↓
 Repository Layer
-
-&#x20;      |
-
-&#x20;      v
-
+       ↓
 MySQL Database
-
 ```
 
+**Controller**  
+Handles HTTP requests and exposes REST endpoints.
 
+**Service**  
+Contains the application's business logic and asynchronous operations.
 
-\### Controller Layer
+**Repository**  
+Uses Spring Data JPA to communicate with the database.
 
+**Entity**  
+Represents the main application data such as customers, chefs, drivers, and orders.
 
+## Main Entities
 
-Handles HTTP requests and exposes REST endpoints for different operations.
+| Entity | Responsibility |
+|---|---|
+| Customer | Represents food delivery customers |
+| Chef | Handles food preparation |
+| Delivery Driver | Handles order delivery |
+| Order | Represents customer food orders |
 
+## Technology Stack
 
+| Technology | Purpose |
+|---|---|
+| Java 17 | Programming language |
+| Spring Boot | Backend framework |
+| Spring Data JPA | Data access |
+| Hibernate | ORM |
+| MySQL | Database |
+| Maven | Build and dependency management |
+| REST API | Client-server communication |
+| Postman | API testing |
 
-\### Service Layer
+## API Endpoints
 
+### Orders
 
+```text
+POST /orders/place
+GET  /orders/allorder
+PUT  /orders/updateorder/{orderId}
+```
 
-Contains the business logic of the application and acts as an intermediary between controllers and repositories.
+### Chefs
 
+```text
+POST /chefs/create
+PUT  /chefs/assign/{chefId}/toOrder/{orderId}
+PUT  /chefs/completeOrder/{orderId}
+```
 
+### Delivery Drivers
 
-\### Repository Layer
+```text
+POST /drivers/create
+GET  /drivers/available
+PUT  /drivers/assign/{driverId}/toOrder/{orderId}
+PUT  /drivers/completeDelivery/{orderId}
+```
 
+## Project Structure
 
+```text
+fooddelivery/
+├── pom.xml
+├── .gitignore
+│
+└── src/
+    ├── main/
+    │   ├── java/com/fooddelivery/
+    │   │   ├── FooddeliveryApplication.java
+    │   │   ├── controller/
+    │   │   ├── entity/
+    │   │   ├── repository/
+    │   │   └── service/
+    │   │
+    │   └── resources/
+    │       └── application.properties
+    │
+    └── test/
+        └── java/com/fooddelivery/
+            └── FooddeliveryApplicationTests.java
+```
 
-Uses Spring Data JPA to perform database operations and communicate with the MySQL database.
+## Getting Started
 
-
-
-\### Entity Layer
-
-
-
-Contains Java entity classes that represent the application's database tables.
-
-
-
-\## Main Entities
-
-
-
-\### Customer
-
-
-
-Represents customers who use the food delivery system.
-
-
-
-\### Chef
-
-
-
-Represents chefs responsible for preparing food orders.
-
-
-
-\### Delivery Driver
-
-
-
-Represents delivery personnel responsible for delivering customer orders.
-
-
-
-\### Order
-
-
-
-Represents food orders placed by customers and processed through the delivery system.
-
-
-
-\## Setup and Installation
-
-
-
-\### 1. Clone the Repository
-
-
+### Clone the repository
 
 ```bash
-
 git clone https://github.com/mukesh7984/Food-delivery-system.git
-
+cd fooddelivery
 ```
 
+### Configure MySQL
 
-
-\### 2. Open the Project
-
-
-
-Open the project in an IDE such as:
-
-
-
-\* IntelliJ IDEA
-
-\* Eclipse
-
-\* Spring Tool Suite
-
-\* Visual Studio Code
-
-
-
-\### 3. Configure MySQL
-
-
-
-Create a MySQL database.
-
-
+Create a database:
 
 ```sql
-
-CREATE DATABASE food\_delivery;
-
+CREATE DATABASE food_delivery;
 ```
 
-
-
-\### 4. Configure Database Connection
-
-
-
-Open:
-
-
+Configure the database connection in:
 
 ```text
-
 src/main/resources/application.properties
-
 ```
-
-
-
-Configure your MySQL connection details.
-
-
 
 Example:
 
-
-
 ```properties
-
-spring.datasource.url=jdbc:mysql://localhost:3306/food\_delivery
-
+spring.datasource.url=jdbc:mysql://localhost:3306/food_delivery
 spring.datasource.username=root
-
-spring.datasource.password=YOUR\_PASSWORD
-
-
+spring.datasource.password=YOUR_PASSWORD
 
 spring.jpa.hibernate.ddl-auto=update
-
 spring.jpa.show-sql=true
-
 ```
 
+> Do not commit real database credentials to GitHub.
 
-
-> \*\*Security:\*\* Do not commit your actual database password or other sensitive credentials to GitHub.
-
-
-
-\### 5. Run the Application
-
-
-
-Using Maven:
-
-
+### Run the application
 
 ```bash
-
 mvn spring-boot:run
-
 ```
 
-
-
-Alternatively, run `FooddeliveryApplication.java` directly from your IDE.
-
-
-
-The application will normally run at:
-
-
+The application runs on:
 
 ```text
-
 http://localhost:8080
-
 ```
 
+## API Testing
 
+The REST APIs can be tested using Postman with standard HTTP methods such as:
 
-\## API Testing
+```text
+GET     → Retrieve data
+POST    → Create data
+PUT     → Update data
+DELETE  → Delete data
+```
 
+## Future Enhancements
 
+- Authentication and authorization
+- Admin dashboard
+- Restaurant and menu management
+- Online payment integration
+- Real-time delivery tracking
+- Order notifications
+- React frontend
+- Cloud deployment
 
-The REST APIs can be tested using Postman.
+## Developer
 
-
-
-Common HTTP methods used in REST APIs include:
-
-
-
-| Method | Purpose              |
-
-| ------ | -------------------- |
-
-| GET    | Retrieve data        |
-
-| POST   | Create new data      |
-
-| PUT    | Update existing data |
-
-| DELETE | Delete data          |
-
-
-
-\## Learning Outcomes
-
-
-
-This project provided practical experience with:
-
-
-
-\* Java backend development
-
-\* Spring Boot
-
-\* REST API development
-
-\* Spring Data JPA
-
-\* Hibernate
-
-\* MySQL
-
-\* CRUD operations
-
-\* Layered architecture
-
-\* Maven
-
-\* Postman API testing
-
-\* Git and GitHub
-
-
-
-\## Future Enhancements
-
-
-
-Possible future improvements include:
-
-
-
-\* User authentication and authorization
-
-\* Admin dashboard
-
-\* Restaurant and menu management
-
-\* Online payment integration
-
-\* Real-time delivery tracking
-
-\* Order status notifications
-
-\* React-based frontend
-
-\* Cloud deployment
-
-
-
-\## Developer
-
-
-
-\*\*Mukesh Vijay\*\*
-
-
+**Mukesh Vijay**
 
 Computer Science and Engineering
 
-
-
-GitHub: https://github.com/mukesh7984
-
-
-
-\---
-
-
-
-
-
+[GitHub](https://github.com/mukesh7984)
